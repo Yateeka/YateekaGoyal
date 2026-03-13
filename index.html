@@ -547,6 +547,21 @@ Show More Experience
 
 </section>
 
+<script>
+    const toggleExperience = document.getElementById("toggleExperience");
+    const moreExperience = document.getElementById("more-experience");
+
+toggleExperience.addEventListener("click", () => {
+
+    moreExperience.classList.toggle("hidden");
+
+    if (moreExperience.classList.contains("hidden")) {
+        toggleExperience.textContent = "Show More Experience";
+    } else {
+        toggleExperience.textContent = "Show Less Experience";
+    }
+
+});
 </script>
 
 
