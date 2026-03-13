@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yateeka Goyal | Portfolio</title>
+<!-- Tailwind CSS CDN with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#6C3BFF', // dark mode buttons / highlights
+              light: '#7C5CFF',   // light mode buttons / highlights
+            },
+            darkBg: '#0B0118',
+
+            /* Dark mode accent */
+            accent: '#A855F7',
+
+            /* Light mode background */
+            lightPurpleBg: '#F4F0FF',
+
+            /* Light mode accents */
+            lightAccent: '#7C5CFF',
+            lightAccentSoft: '#E9E3FF'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+<style data-purpose="layout-animations">
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.float-anim {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* DARK MODE GLASS */
+.glass-card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* LIGHT MODE GLASS */
+body:not(.dark) .glass-card {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(6px);
+    border: 1px solid #DDD6FE;
+    box-shadow: 0 10px 30px rgba(108,59,255,0.08);
+}
+/* DARK MODE GRADIENT */
+.gradient-text {
+    background: linear-gradient(135deg, #6C3BFF 0%, #A855F7 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+/* LIGHT MODE GRADIENT */
+body:not(.dark) .gradient-text {
+    background: linear-gradient(135deg, #7C5CFF 0%, #C084FC 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+/* LIGHT MODE PROJECT HEADER COLORS */
+body:not(.dark) .project-gradient-1 {
+    background: linear-gradient(135deg, #C7D2FE, #A5B4FC);
+}
+
+body:not(.dark) .project-gradient-2 {
+    background: linear-gradient(135deg, #F5D0FE, #E9D5FF);
+}
+
+body:not(.dark) .project-gradient-3 {
+    background: linear-gradient(135deg, #DDD6FE, #C4B5FD);
+}
+
+/* DARK MODE PROJECT HEADER COLORS */
+.dark .project-gradient-1 {
+    background: linear-gradient(135deg, #1E3A8A, #6C3BFF);
+}
+
+.dark .project-gradient-2 {
+    background: linear-gradient(135deg, #5B1A8E, #C2185B);
+;
+}
+
+.dark .project-gradient-3 {
+    background: linear-gradient(135deg, #0F172A, #6C3BFF);
+}
+
+
+
+/* Timeline dot */
+.timeline-dot::after {
+    content:'';
+    position:absolute;
+    width:12px;
+    height:12px;
+    background:#6C3BFF;
+    border-radius:50%;
+    left:-6px;
+    top:8px;
+}
+
+</style>
+
+<!-- END: Custom Styles -->
+</head>
+
+<body class="bg-darkBg text-gray-200 transition-colors duration-300 dark">
+    
+<!-- BEGIN: MainHeader -->
+<header class="fixed top-0 w-full z-50 glass-card border-b border-white/10" data-purpose="navigation-container">
+<nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+<a href="#hero" class="text-2xl font-bold gradient-text" data-purpose="logo">
+YG
+</a>
+
+<!-- Desktop Links -->
+<div class="hidden md:flex items-center space-x-8">
+<a class="hover:text-primary transition-colors" href="#about">About</a>
+<a class="hover:text-primary transition-colors" href="#skills">Skills</a>
+<a class="hover:text-primary transition-colors" href="#experience">Experience</a>
+<a class="hover:text-primary transition-colors" href="#projects">Projects</a>
+<a class="hover:text-primary transition-colors" href="#contact">Contact</a>
+<!-- Theme Toggle -->
+<button class="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-all" data-purpose="theme-switcher" id="themeToggle">
+<svg class="hidden w-5 h-5 text-yellow-400" fill="currentColor" id="sunIcon" viewbox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
+<svg class="w-5 h-5 text-primary-light" fill="currentColor" id="moonIcon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+</button>
+</div>
+</nav>
+</header>
+<!-- END: MainHeader -->
+<main class="pt-20">
+<!-- BEGIN: HeroSection -->
+<section class="min-h-[90vh] flex items-center justify-center px-6" data-purpose="hero-content" id="hero">
+<div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+<!-- Headshot Placeholder -->
+<div class="relative w-64 h-64 md:w-80 md:h-80 float-anim">
+<div class="absolute inset-0 rounded-full bg-gradient-to-tr from-primary to-accent blur-xl opacity-30"></div>
+<div class="relative w-full h-full rounded-full border-4 border-primary overflow-hidden">
+<img alt="Yateeka Goyal" class="w-full h-full object-cover" src="ygoyal2@student.gsu.edu-3.jpg"/>
+</div>
+</div>
+<div class="text-center md:text-left">
+<h1 class="text-5xl md:text-7xl font-extrabold mb-4">
+            <span class="gradient-text">Yateeka Goyal</span>
+</h1>
+<p class="text-xl md:text-2xl font-medium text-gray-400 mb-6">CS &amp; Cybersecurity Student @ Georgia State University</p>
+<p class="max-w-xl text-lg text-gray-500 mb-8 leading-relaxed">
+        Computer Science student interested in network security and computer science education research. I enjoy exploring secure system design while mentoring students and contributing to initiatives that support inclusive computing education.
+
+          </p>
+<div class="flex flex-wrap gap-4 justify-center md:justify-start">
+<a class="px-8 py-3 bg-primary hover:bg-opacity-90 text-white rounded-full font-semibold transition-all inline-flex items-center justify-center min-w-[160px]" href="#projects">View Projects</a>
+<a href="Yateeka Goyal - Resume.pdf"
+target="_blank"
+class="px-8 py-3 bg-primary hover:bg-opacity-90 text-white rounded-full font-semibold transition-all inline-flex items-center justify-center min-w-[160px]">
+Download Resume
+</a>
+<a class="px-8 py-3 bg-primary hover:bg-opacity-90 text-white rounded-full font-semibold transition-all inline-flex items-center justify-center min-w-[160px]" href="#contact">Contact Me</a>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: AboutSection -->
+<section class="py-24 px-6 bg-white/[0.02]" data-purpose="about-section" id="about">
+<div class="max-w-4xl mx-auto">
+<h2 class="text-3xl font-bold mb-12 text-center underline decoration-primary decoration-4 underline-offset-8">About Me</h2>
+<div class="glass-card p-8 rounded-3xl">
+<p class="text-lg leading-relaxed mb-6">
+            I recently graduated with a Bachelor's degree in Computer Science from 
+<span class="text-primary font-semibold">Georgia State University</span> 
+with a 3.91 GPA and have begun my Master’s in Computer Science, where I am 
+focusing on security and privacy. My interests lie at the intersection of 
+network security, secure system design, and computer science education, 
+where I enjoy exploring both technical security challenges and how students 
+learn computing concepts.
+
+          </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-4">
+<h3 class="text-xl font-bold text-primary-light">Core Interests</h3>
+<ul class="list-disc list-inside text-gray-400 space-y-2">
+<li>Network Security & Secure System Design</li>
+
+<li>Cryptography & Privacy</li>
+<li>Computer Science Education Research</li>
+<li>Inclusive Computing & Student Mentorship</li>
+</ul>
+</div>
+<div class="space-y-4">
+<h3 class="text-xl font-bold text-primary-light">Education Highlights</h3>
+<ul class="list-disc list-inside text-gray-400 space-y-2">
+<li>GPA: 3.91 / 4.0</li>
+<li>M.S. in Computer Science – Security & Privacy Focus</li>
+<li>B.S. in Computer Science – Georgia State University</li>
+<li>President’s List Scholar</li>
+<li>Academic Focus: Network Security & CS Education</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: AboutSection -->
+<!-- BEGIN: SkillsSection -->
+<section class="py-24 px-6" id="skills">
+
+<div class="max-w-6xl mx-auto">
+
+<h2 class="text-3xl font-bold mb-16 text-center underline decoration-primary decoration-4 underline-offset-8">
+Skills
+</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+
+<!-- Programming -->
+<div class="glass-card p-8 rounded-3xl border-l-4 border-primary">
+
+<h3 class="text-xl font-bold mb-6">
+Programming
+</h3>
+
+<div class="flex flex-wrap gap-3">
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">Python</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">Java</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">C++</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">SQL</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">JavaScript</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">Git</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">GitHub</span>
+
+</div>
+
+</div>
+
+
+<!-- Cybersecurity -->
+<div class="glass-card p-8 rounded-3xl border-l-4 border-primary">
+
+<h3 class="text-xl font-bold mb-6">
+Network Security & Cybersecurity
+</h3>
+
+<div class="flex flex-wrap gap-3">
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">
+Network Security
+</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">
+Cryptography
+</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">
+Threat Modeling
+</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">
+Vulnerability Analysis
+</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">
+Secure System Design
+</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">
+Network Traffic Analysis
+</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">
+GNS3 Network Simulation
+</span>
+
+</div>
+
+</div>
+
+
+<!-- CS Education -->
+<div class="glass-card p-8 rounded-3xl border-l-4 border-primary">
+
+<h3 class="text-xl font-bold mb-6">
+Computer Science Education
+</h3>
+
+<div class="flex flex-wrap gap-3">
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">
+Programming Instruction
+</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">
+Student Mentoring
+</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">
+Computer Science Tutoring
+</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">
+Workshop Facilitation
+</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">
+Inclusive Computing Education
+</span>
+
+<span class="px-4 py-2 bg-primary/20 rounded-lg text-primary-light font-medium">
+Academic Mentorship
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BEGIN: ExperienceSection -->
+<section class="py-24 px-6 bg-white/[0.02]" id="experience">
+
+<div class="max-w-4xl mx-auto">
+
+<h2 class="text-3xl font-bold mb-16 text-center underline decoration-primary decoration-4 underline-offset-8">
+Experience
+</h2>
+
+<div class="relative border-l-2 border-primary/30 ml-4 space-y-12">
+
+<!-- Graduate Teaching Assistant -->
+<div class="relative pl-8 timeline-dot">
+<span class="text-sm font-bold text-primary block mb-1">
+Jan 2025 – Present
+</span>
+
+<h3 class="text-xl font-bold">
+Graduate Teaching Assistant
+</h3>
+
+<p class="text-gray-400 mb-2">
+Georgia State University
+</p>
+
+<p class="text-gray-500">
+Mentoring undergraduate Computer Science students through grading,
+lab support, and office hours while helping students debug code and
+understand algorithms and programming concepts.
+</p>
+</div>
+
+
+<!-- Girls Who Code Co-President -->
+<div class="relative pl-8 timeline-dot">
+<span class="text-sm font-bold text-primary block mb-1">
+Jan 2025 – Present
+</span>
+
+<h3 class="text-xl font-bold">
+Girls Who Code – Co-President
+</h3>
+
+<p class="text-gray-400 mb-2">
+Georgia State University Chapter
+</p>
+
+<p class="text-gray-500">
+Leading initiatives supporting women and non-binary students in tech
+while organizing mentorship programs, technical workshops, and hackathons.
+</p>
+
+<a href="https://www.linkedin.com/in/gwcatgsu/"
+target="_blank"
+class="text-primary font-semibold hover:underline block mt-2">
+Learn More →
+</a>
+
+</div>
+
+
+<!-- HackHERS Director -->
+<div class="relative pl-8 timeline-dot">
+<span class="text-sm font-bold text-primary block mb-1">
+Jan 2025 – Present
+</span>
+
+<h3 class="text-xl font-bold">
+HackHERS – Director / Organizing Team
+</h3>
+
+<p class="text-gray-400 mb-2">
+Girls Who Code HackHERS
+</p>
+
+<p class="text-gray-500">
+Planning and coordinating the HackHERS hackathon including logistics,
+sponsorships, outreach, and technical workshops.
+</p>
+
+<a href="https://www.linkedin.com/company/hackhers-gwc-at-gsu/"
+target="_blank"
+class="text-primary font-semibold hover:underline block mt-2">
+Learn More →
+</a>
+
+</div>
+
+
+<!-- HIDDEN EXPERIENCES -->
+<div id="more-experience" class="hidden space-y-12">
+
+
+<!-- Tutor -->
+<div class="relative pl-8 timeline-dot">
+<span class="text-sm font-bold text-primary block mb-1">
+Jan 2025 – Dec 2025
+</span>
+
+<h3 class="text-xl font-bold">
+Tutor / Academic Coach
+</h3>
+
+<p class="text-gray-400 mb-2">
+TRIO Student Support Services
+</p>
+
+<p class="text-gray-500">
+Tutored Computer Science subjects including programming and data
+structures while supporting first-generation and underrepresented students.
+</p>
+</div>
+
+
+<!-- Girls Who Code Mentor -->
+<div class="relative pl-8 timeline-dot">
+<span class="text-sm font-bold text-primary block mb-1">
+Nov 2024 – May 2025
+</span>
+
+<h3 class="text-xl font-bold">
+Girls Who Code – Mentor
+</h3>
+
+<p class="text-gray-400 mb-2">
+Mentor Corps Program
+</p>
+
+<p class="text-gray-500">
+Mentored aspiring developers while facilitating sessions on coding,
+problem solving, and collaborative development.
+</p>
+</div>
+
+
+<!-- Orientation Leader -->
+<div class="relative pl-8 timeline-dot">
+<span class="text-sm font-bold text-primary block mb-1">
+May 2025 – Aug 2025
+</span>
+
+<h3 class="text-xl font-bold">
+New Student Orientation Leader
+</h3>
+
+<p class="text-gray-400 mb-2">
+Georgia State University
+</p>
+
+<p class="text-gray-500">
+Guided incoming students through university orientation programs
+and connected them with academic and campus resources.
+</p>
+</div>
+
+
+<!-- Research Intern -->
+<div class="relative pl-8 timeline-dot">
+<span class="text-sm font-bold text-primary block mb-1">
+Jan 2024 – Dec 2025
+</span>
+
+<h3 class="text-xl font-bold">
+Research Intern
+</h3>
+
+<p class="text-gray-400 mb-2">
+Georgia State University – University Assistantship Program
+</p>
+
+<p class="text-gray-500">
+Worked under Cs-professors supporting research involving algorithm development, data analysis,
+and Python programming.
+</p>
+</div>
+
+</div>
+
+
+<!-- Show More Button -->
+<div class="text-center mt-12">
+
+<button
+id="toggleExperience"
+class="px-6 py-3 bg-primary text-white rounded-full hover:bg-opacity-90 transition">
+
+Show More Experience
+
+</button>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+</script>
+
+
+<!-- END: ExperienceSection -->
+<section class="py-24 px-6" id="projects">
+
+<div class="max-w-6xl mx-auto">
+
+<h2 class="text-3xl font-bold mb-12 text-center underline decoration-primary decoration-4 underline-offset-8">
+Projects
+</h2>
+
+
+<!-- TOGGLE -->
+<div class="flex justify-center gap-4 mb-16">
+
+<button id="showResearch"
+class="px-6 py-2 rounded-full bg-primary text-white font-semibold transition">
+Research In Progress
+</button>
+
+<button id="showCompleted"
+class="px-6 py-2 rounded-full bg-primary/20 text-primary font-semibold transition">
+Completed Projects
+</button>
+
+</div>
+
+
+<!-- ================= RESEARCH PROJECTS ================= -->
+
+<div id="researchProjects" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+<!-- Project 1 -->
+<div class="group glass-card rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-300">
+
+<div class="h-40 project-gradient-1"></div>
+
+<div class="p-6">
+
+<h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+LLM-Based Classification of Encryption Algorithms
+</h3>
+
+<p class="text-xs text-purple-400 mb-2">
+Research in Progress
+</p>
+
+<p class="text-gray-500 text-sm leading-relaxed">
+Explores whether large language models can identify the symmetric
+encryption algorithm used to generate ciphertext by analyzing
+statistical and structural patterns without access to the encryption key.
+</p>
+
+<a href="https://github.com/SecondMach/CryptographyProject"
+target="_blank"
+class="text-primary-light text-sm font-bold hover:underline">
+Github →
+</a>
+
+</div>
+</div>
+
+
+<!-- Project 2 -->
+<div class="group glass-card rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-300">
+
+<div class="h-40 project-gradient-2"></div>
+
+<div class="p-6">
+
+<h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+Secure Email Protocols: PGP vs S/MIME
+</h3>
+
+<p class="text-xs text-purple-400 mb-2">
+Research in Progress
+</p>
+
+<p class="text-gray-500 text-sm mb-4 leading-relaxed">
+Security analysis and implementation of the PGP and S/MIME secure email
+protocols. Evaluates cryptographic workflows, protocol trust models,
+and resistance to attacks including MITM, replay, and impersonation.
+</p>
+
+<div class="flex gap-4">
+
+<a href="https://github.com/Yateeka/Network-Security"
+target="_blank"
+class="text-primary-light text-sm font-bold hover:underline">
+Github →
+</a>
+
+</div>
+
+</div>
+</div>
+
+
+<!-- Project 3 -->
+<div class="group glass-card rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-300">
+
+<div class="h-40 project-gradient-3"></div>
+
+<div class="p-6">
+
+<h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+Skew-Resilient Network Flow Analytics
+</h3>
+
+<p class="text-xs text-purple-400 mb-2">
+Research Proposal
+</p>
+
+<p class="text-gray-500 text-sm mb-4 leading-relaxed">
+Explores distributed similarity search for network traffic analytics
+using Harmony-based vector search architectures to handle skewed
+and bursty network workloads.
+</p>
+
+<div class="flex gap-4">
+
+<a href="https://github.com/Yateeka/ADCN-Project"
+target="_blank"
+class="text-primary-light text-sm font-bold hover:underline">
+Github →
+</a>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+<!-- ================= COMPLETED PROJECTS ================= -->
+
+<div id="completedProjects" class="grid grid-cols-1 md:grid-cols-3 gap-8 hidden">
+
+
+<!-- Project 4 -->
+<div class="group glass-card rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-300">
+
+<div class="h-40 project-gradient-1"></div>
+
+<div class="p-6">
+
+<h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+Breaking & Defending PRNGs
+</h3>
+
+<p class="text-xs text-purple-400 mb-2">
+
+Jan 2025 – Apr 2025
+</p>
+
+<p class="text-gray-500 text-sm mb-4 leading-relaxed">
+Security research analyzing vulnerabilities in Java's
+Linear Congruential Generator used by <code>java.util.Random</code>.
+Demonstrates predictability through brute-force attacks and
+proposes a SHA-256 based secure alternative.
+</p>
+
+<div class="flex gap-4">
+
+<a href="https://github.com/Yateeka/prng-security"
+target="_blank"
+class="text-primary-light text-sm font-bold hover:underline">
+GitHub →
+</a>
+
+</div>
+
+</div>
+</div>
+
+
+
+<!-- Project 5 -->
+<div class="group glass-card rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-300">
+
+<div class="h-40 project-gradient-2"></div>
+
+<div class="p-6">
+
+
+<h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+Femora
+</h3>
+
+<p class="text-xs text-purple-400 mb-2">
+Sep 2024 – Sep 2024
+</p>
+
+<p class="text-gray-500 text-sm mb-4 leading-relaxed">
+A privacy-focused platform providing discreet support
+resources for domestic abuse victims while maintaining
+strong user privacy and safety protections.
+</p>
+
+<div class="flex gap-4">
+
+<a href="https://femora3135.my.canva.site/"
+target="_blank"
+class="text-primary-light text-sm font-bold hover:underline">
+Project →
+</a>
+
+</div>
+
+</div>
+</div>
+
+
+
+<!-- Project 6 -->
+<div class="group glass-card rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-300">
+
+<div class="h-40 project-gradient-3"></div>
+
+<div class="p-6">
+
+<h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+Expert Detection on Crowdsourcing Forums
+</h3>
+
+<p class="text-xs text-purple-400 mb-2">
+
+Jan 2023 – Aug 2024
+</p>
+
+<p class="text-gray-500 text-sm mb-4 leading-relaxed">
+Research project studying expert identification in online
+communities using graph neural networks and the
+Sheaf Laplacian framework.
+</p>
+
+<div class="flex gap-4">
+
+<a href="https://ieeexplore.ieee.org/document/11247970"
+target="_blank"
+class="text-primary-light text-sm font-bold hover:underline">
+Paper →
+</a>
+
+</div>
+
+</div>
+</div>
+
+
+</div>
+
+</div>
+</section>
+
+<script>
+
+const researchBtn = document.getElementById("showResearch");
+const completedBtn = document.getElementById("showCompleted");
+
+const research = document.getElementById("researchProjects");
+const completed = document.getElementById("completedProjects");
+
+researchBtn.addEventListener("click", () => {
+
+research.classList.remove("hidden");
+completed.classList.add("hidden");
+
+researchBtn.classList.add("bg-primary","text-white");
+researchBtn.classList.remove("bg-primary/20","text-primary");
+
+completedBtn.classList.remove("bg-primary","text-white");
+completedBtn.classList.add("bg-primary/20","text-primary");
+
+});
+
+completedBtn.addEventListener("click", () => {
+
+completed.classList.remove("hidden");
+research.classList.add("hidden");
+
+completedBtn.classList.add("bg-primary","text-white");
+completedBtn.classList.remove("bg-primary/20","text-primary");
+
+researchBtn.classList.remove("bg-primary","text-white");
+researchBtn.classList.add("bg-primary/20","text-primary");
+
+});
+
+</script>
+</section>
+
+ <!-- BEGIN: ContactSection -->
+<section class="py-24 px-6 bg-white/[0.02]" id="contact">
+
+<div class="max-w-4xl mx-auto">
+
+<h2 class="text-3xl font-bold mb-16 text-center underline decoration-primary decoration-4 underline-offset-8">
+Get In Touch
+</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+
+<!-- LEFT SIDE -->
+<div>
+
+<h3 class="text-2xl font-bold mb-4">
+Let's Connect
+</h3>
+
+<p class="text-gray-500 mb-8 leading-relaxed">
+I'm always open to discussing cybersecurity projects, research opportunities, or technical internships. Feel free to reach out through the form or my socials!
+</p>
+
+<div class="space-y-4">
+
+<a class="flex items-center gap-4 text-gray-400 hover:text-primary transition-colors"
+href="mailto:yateeka.goyal@gmail.com">
+
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+📧
+</div>
+
+<span>
+yateeka.goyal@gmail.com
+</span>
+
+</a>
+
+
+<a class="flex items-center gap-4 text-gray-400 hover:text-primary transition-colors"
+href="https://linkedin.com/in/yateeka-goyal"
+target="_blank">
+
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+🔗
+</div>
+
+<span>
+linkedin.com/in/yateeka-goyal
+</span>
+
+</a>
+
+</div>
+
+</div>
+
+
+<!-- FORM SIDE -->
+<form
+action="https://formspree.io/f/xpqyldka"
+method="POST"
+class="space-y-4">
+
+<!-- Name -->
+<div>
+<input
+name="name"
+type="text"
+placeholder="Your Name"
+required
+class="w-full bg-white dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors"></textarea>
+</div>
+
+<!-- Email -->
+<div>
+<input
+name="email"
+type="email"
+placeholder="Your Email"
+required
+class="w-full bg-white dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors"></textarea>
+</div>
+
+<!-- Message -->
+<div>
+<textarea
+name="message"
+rows="4"
+placeholder="Your Message"
+required
+class="w-full bg-white dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors"></textarea>
+</div>
+
+<!-- Email subject -->
+<input type="hidden" name="_subject" value="New message from Yateeka's Portfolio">
+
+<button
+class="w-full bg-primary py-3 rounded-full font-bold text-white hover:bg-opacity-90 transition-all"
+type="submit">
+
+Send Message
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+<!-- END: ContactSection -->
+</main>
+<!-- BEGIN: Footer -->
+<footer class="py-8 border-t border-white/10 text-center text-gray-500 text-sm" data-purpose="main-footer">
+<div class="container mx-auto px-6">
+<p>Yateeka Goyal © 2026</p>
+</div>
+</footer>
+<!-- END: Footer -->
+<!-- BEGIN: Scripts -->
+<script data-purpose="theme-logic">
+    const themeToggle = document.getElementById('themeToggle');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    const body = document.body;
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      body.classList.toggle('bg-darkBg');
+      body.classList.toggle('bg-white');
+      body.classList.toggle('text-gray-200');
+      body.classList.toggle('text-gray-900');
+      
+      sunIcon.classList.toggle('hidden');
+      moonIcon.classList.toggle('hidden');
+    });
+  </script>
+<script data-purpose="scroll-animations">
+    // Simple intersection observer for reveal effects
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('opacity-100', 'translate-y-0');
+          entry.target.classList.remove('opacity-0', 'translate-y-10');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section').forEach(section => {
+      section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+      observer.observe(section);
+    });
+  </script>
+<!-- END: Scripts -->
+</body></html>
