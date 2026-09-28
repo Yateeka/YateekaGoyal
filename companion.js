@@ -46,22 +46,66 @@
   let emotionTimer, idleTimer, attentionTimer;
   const emotionMark = character.querySelector('.emotion-mark');
   const outfitPicker = document.querySelector('#pixelOutfit');
-  companion.dataset.outfit='professional';
+  const outfitPositions={polka:'0%',winter:'33.333%',floral:'66.667%',sari:'100%'};
+  function applyOutfit(outfit){
+    companion.dataset.outfit=outfit;
+    companion.style.setProperty('--outfit-position',outfitPositions[outfit]||'0%');
+  }
+  function seasonFor(date=new Date()){
+    const month=date.getMonth();
+    if(month===11||month<2)return 'winter';
+    if(month<5)return 'spring';
+    if(month<8)return 'summer';
+    return 'fall';
+  }
+  const seasonalOutfits={winter:'winter',spring:'floral',summer:'polka',fall:'professional'};
+  // US observance dates from USC's Hindu holy-days calendar; regional dates can vary.
+  const hinduFestivalDates=new Set([
+    '2026-08-28','2026-09-04','2026-09-14',...dateRange('2026-10-11','2026-10-20'),'2026-11-08',
+    '2027-03-06','2027-03-22','2027-08-17','2027-08-25','2027-09-04',...dateRange('2027-09-30','2027-10-09'),'2027-10-29',
+    '2028-02-23','2028-03-11','2028-08-05','2028-08-13','2028-08-23',...dateRange('2028-09-19','2028-09-27'),'2028-10-17',
+    '2029-02-11','2029-03-01'
+  ]);
+  function dateRange(first,last){
+    const dates=[],date=new Date(first+'T12:00:00'),end=new Date(last+'T12:00:00');
+    while(date<=end){dates.push(date.toISOString().slice(0,10));date.setDate(date.getDate()+1)}
+    return dates;
+  }
+  function calendarDate(date){return date.getFullYear()+'-'+String(date.getMonth()+1).padStart(2,'0')+'-'+String(date.getDate()).padStart(2,'0')}
+  function outfitForDate(date){return hinduFestivalDates.has(calendarDate(date))?'sari':seasonalOutfits[seasonFor(date)]}
+  let checkedDate=calendarDate(new Date()), selectedOutfit=outfitForDate(new Date()), sleeping=false;
+  applyOutfit(selectedOutfit);
+  outfitPicker.value=selectedOutfit;
   outfitPicker.addEventListener('change',()=>{
-    companion.dataset.outfit=outfitPicker.value;
-    const positions={polka:'0%',winter:'33.333%',floral:'66.667%',sari:'100%'};
-    companion.style.setProperty('--outfit-position',positions[outfitPicker.value]||'0%');
+    selectedOutfit=outfitPicker.value;
+    if(!sleeping)applyOutfit(selectedOutfit);
     bubble.textContent='New outfit, same curious me ♡';
   });
+  function refreshCalendarOutfit(){
+    const now=new Date(),nextDate=calendarDate(now);
+    if(nextDate!==checkedDate){
+      checkedDate=nextDate;
+      selectedOutfit=outfitForDate(now);
+      outfitPicker.value=selectedOutfit;
+      if(!sleeping)applyOutfit(selectedOutfit);
+    }
+  }
+  setInterval(refreshCalendarOutfit,60*1000);
+  function setSleeping(value){
+    sleeping=value;
+    applyOutfit(sleeping?'pajamas':selectedOutfit);
+  }
   function react(emotion,message,duration=5500){
     if(dragging || companion.hidden || document.body.classList.contains('dialog-open'))return;
     clearTimeout(emotionTimer);
+    setSleeping(emotion==='sleepy');
     stopWalking();
     companion.dataset.emotion=emotion;
     emotionMark.textContent={happy:'♡',thinking:'…?',proud:'✦',confused:'?',sleepy:'z Z',excited:'✧ ♡ ✧',shy:'♡'}[emotion]||'';
     bubble.textContent=message;
     emotionTimer=setTimeout(()=>{
       companion.dataset.emotion='';emotionMark.textContent='';
+      if(sleeping)setSleeping(false);
       if(!dragging)bubble.textContent='Hi, I am Yateeka off duty';
     },duration);
   }
@@ -69,25 +113,55 @@
   addEventListener('pixel-reaction',event=>react(event.detail.emotion,event.detail.message));
   function resetIdle(){
     clearTimeout(idleTimer);
-    if(companion.dataset.emotion==='sleepy'){companion.dataset.emotion='';emotionMark.textContent='';bubble.textContent='Hi, I am Yateeka off duty';}
+    if(companion.dataset.emotion==='sleepy'){companion.dataset.emotion='';emotionMark.textContent='';setSleeping(false);bubble.textContent='Hi, I am Yateeka off duty';}
     idleTimer=setTimeout(()=>react('sleepy','Still there? I’m taking a tiny nap.',60000),45000);
   }
   document.addEventListener('pointerdown',resetIdle,{passive:true});
   document.addEventListener('keydown',resetIdle);
   resetIdle();
+  let neglect = 0, takingOver = false;
   function resetAttention(){
     clearTimeout(attentionTimer);
-    // Sadness is triggered by pausing, rather than an attention countdown.
+    if(takingOver || companion.hidden || document.hidden)return;
+    neglect=0;
+    companion.style.removeProperty('--attention-scale');
+    character.style.transform='scale(1)';
+    bubble.textContent='Hi, I am Yateeka off duty';
+    attentionTimer=setTimeout(escalateNeglect,20000);
   }
-  character.addEventListener('pointerdown',()=>{
+  function escalateNeglect(){
+    if(takingOver || companion.hidden || document.hidden)return;
+    neglect++;
+    const scale=1+neglect*.12;
+    companion.style.setProperty('--attention-scale',scale);
+    character.style.transform='scale('+scale+')';
+    bubble.textContent=neglect<3?'Hey… still there?':'I’m getting bigger over here…';
+    if(neglect>=12){takeOverPage();return;}
+    attentionTimer=setTimeout(escalateNeglect,20000);
+  }
+  function takeOverPage(){
+    if(takingOver)return;
+    takingOver=true;
+    clearTimeout(emotionTimer);
+    clearTimeout(idleTimer);
+    stopWalking();
+    closeMenu();
+    layer.classList.add('pixel-takeover');
+    companion.classList.add('attention-takeover');
+    companion.style.transform='none';
+    bubble.textContent='I was waiting for you… ♡';
+    character.setAttribute('aria-label','Pixel Yateeka has taken over the page');
+    setTimeout(()=>location.assign('yateeka-is-sad.html'),reduced.matches?400:1800);
+  }
+  companion.addEventListener('pointerdown',()=>{
     if(companion.dataset.emotion==='crying')react('happy','You’re here! Okay, I’m happy now ♡');
     resetAttention();
   });
-  companion.addEventListener('click',resetAttention);
+  companion.addEventListener('keydown',resetAttention);
   document.addEventListener('visibilitychange',()=>{
-    if(document.hidden)clearTimeout(attentionTimer);else resetAttention();
+    if(document.hidden)clearTimeout(attentionTimer);
+    else{refreshCalendarOutfit();resetAttention();}
   });
-  resetAttention();
   const activities = ['bracelets', 'sewing', 'teaching', 'travelling', 'kdrama', 'anime'];
   const descriptions = {bracelets:'One more bead. Always one more.',sewing:'A stitch in time… and a little pink.',teaching:'Big ideas start with small questions.',travelling:'BRB, dreaming about my next trip ✈',kdrama:'Just one more episode of Mr. Queen…',anime:'Maomao has entered the chat ♡',donuts:'Donut worry, I saved you a bite. 🍩'};
   let donutTimer, donutRainTimer, donutReady=false, donutCount=0;
@@ -253,23 +327,15 @@
     if(paused)react('crying','No more wandering? Just one tiny adventure? 🥺',12000);
     else react('happy','Yay! Back to exploring ♡',3000);
   };
-  document.querySelector('#hideCompanion').onclick=()=>{companion.hidden=true;closeMenu();document.querySelector('#showCompanion').hidden=false;document.querySelector('#showCompanion').focus();};
-  document.querySelector('#showCompanion').onclick=()=>{companion.hidden=false;bringIntoView();document.querySelector('#showCompanion').hidden=true;character.focus({preventScroll:true});};
+  document.querySelector('#hideCompanion').onclick=()=>{clearTimeout(attentionTimer);companion.hidden=true;closeMenu();document.querySelector('#showCompanion').hidden=false;document.querySelector('#showCompanion').focus();};
+  document.querySelector('#showCompanion').onclick=()=>{companion.hidden=false;bringIntoView();resetAttention();document.querySelector('#showCompanion').hidden=true;character.focus({preventScroll:true});};
   companion.addEventListener('keydown',event=>{if(event.key==='Escape'){closeMenu();character.focus({preventScroll:true});}});
   function chooseDestination(now) {
     const width = companion.offsetWidth;
-    const offscreen = x < -width/2 || x > innerWidth-width/2 || y < -companion.offsetHeight/2 || y > innerHeight-80;
-    if(offscreen) {
-      targetX=20+Math.random()*Math.max(0,innerWidth-width-40);
-      targetY=20+Math.random()*Math.max(0,innerHeight-companion.offsetHeight-100);
-    } else if(Math.random()<.4) {
-      const edge=Math.floor(Math.random()*4);
-      targetX=edge===0?-width-30:edge===1?innerWidth+30:Math.random()*innerWidth;
-      targetY=edge===2?-companion.offsetHeight-30:edge===3?innerHeight+30:Math.random()*Math.max(0,innerHeight-companion.offsetHeight);
-    } else {
-      targetX=16+Math.random()*Math.max(0,innerWidth-width-32);
-      targetY=16+Math.random()*Math.max(0,innerHeight-companion.offsetHeight-32);
-    }
+    const offscreen = x < 12 || x > innerWidth-width-12 || y < 12 || y > innerHeight-companion.offsetHeight-12;
+    if(offscreen)bringIntoView();
+    targetX=12+Math.random()*Math.max(0,innerWidth-companion.offsetWidth-24);
+    targetY=12+Math.random()*Math.max(0,innerHeight-companion.offsetHeight-24);
     companion.style.setProperty('--walk-facing',targetX<x?'-1':'1');
     moving=true;
     companion.classList.add('wandering');
@@ -285,9 +351,8 @@
       const speed=innerWidth<600?45:65;
       if(distance<=speed*elapsed) {
         x=targetX;y=targetY;stopWalking();
-        const outside=x<0||x>innerWidth-companion.offsetWidth||y<0||y>innerHeight-companion.offsetHeight;
-        restingUntil=now+(outside?1200:3500+Math.random()*4000);
-        if(!outside)setActivity(activities[Math.floor(Math.random()*activities.length)]);
+        restingUntil=now+3500+Math.random()*4000;
+        setActivity(activities[Math.floor(Math.random()*activities.length)]);
       } else {
         x+=dx/distance*speed*elapsed;y+=dy/distance*speed*elapsed;
       }
@@ -345,7 +410,7 @@
   character.addEventListener('pointercancel',finishDrag);
   character.addEventListener('lostpointercapture',finishDrag);
   const hackingButton=document.querySelector('#hackingMode');
-  let beforeDare='';
+  let beforeDare='', beforeDarePortrait='';
   const mischiefPreload=new Image();mischiefPreload.src='pixel-yateeka-mischief.png';
   function dare(){
     if(companion.hidden || companion.classList.contains('daring'))return;
@@ -353,13 +418,14 @@
     if(x<0||x>innerWidth-companion.offsetWidth||y<0||y>innerHeight-companion.offsetHeight)bringIntoView();
     stopWalking();
     bubble.textContent='I dare you to click it';
-    portrait.src='pixel-yateeka-mischief.png';
+    beforeDarePortrait=portrait.getAttribute('src');
+    if(companion.dataset.outfit==='professional')portrait.src='pixel-yateeka-mischief.png';
     companion.classList.add('daring');
   }
   function stopDare(){
     if(!companion.classList.contains('daring'))return;
     companion.classList.remove('daring');
-    portrait.src=dragging?'pixel-yateeka-angry.png':'pixel-yateeka.png';
+    portrait.src=companion.dataset.outfit==='professional'?(dragging?'pixel-yateeka-angry.png':'pixel-yateeka.png'):beforeDarePortrait;
     bubble.textContent=beforeDare;
   }
   hackingButton.addEventListener('pointerenter',dare);
@@ -370,10 +436,11 @@
   setActivity('bracelets');
   const terminalRect=document.querySelector('.terminal').getBoundingClientRect();
   x=Math.max(12,Math.min(innerWidth-companion.offsetWidth-12,terminalRect.right-companion.offsetWidth-20));
-  y=Math.max(12,innerHeight-terminalRect.bottom+155);
+  y=Math.max(12,Math.min(innerHeight-companion.offsetHeight-12,innerHeight-terminalRect.bottom+155));
   targetX=x;targetY=y;
   restingUntil=performance.now()+14000;
-  updatePause();place();
+  updatePause();bringIntoView();
   bubble.textContent='Hi, I am Yateeka off duty';
+  resetAttention();
   requestAnimationFrame(wander);
 })();

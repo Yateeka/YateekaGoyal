@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" data-theme="normal">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#171019"><title>Yateeka is sad… | Yateeka Goyal</title>
+<script>try{const t=localStorage.getItem('yg-theme');if(['light','normal','dark'].includes(t))document.documentElement.dataset.theme=t}catch{}</script>
+<style>
+:root{color-scheme:dark;--bg:#171019;--panel:#211722;--ink:#f8eaf2;--muted:#c2aabb;--pink:#ff79bc;--line:#75435f;--soft:#342036}
+[data-theme=dark]{--bg:#08070b;--panel:#121016;--ink:#f5edf3;--muted:#b6a3b3;--pink:#ff79bc;--line:#513247;--soft:#281923}
+[data-theme=light]{color-scheme:light;--bg:#fff3f8;--panel:#fffafd;--ink:#352334;--muted:#79566d;--pink:#a82565;--line:#d5abc2;--soft:#f6e1ed}
+*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;padding:24px;background:var(--bg);color:var(--ink);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;overflow:hidden}
+main{position:relative;width:min(720px,100%);padding:clamp(28px,7vw,70px);border:1px solid var(--line);border-radius:12px;background:var(--panel);text-align:center;box-shadow:0 25px 100px #0005;overflow:hidden}
+.eyebrow{font-size:10px;letter-spacing:.15em;color:var(--pink)}h1{margin:12px 0;font:700 clamp(32px,7vw,58px)/1.1 system-ui,sans-serif;letter-spacing:-.05em}p{color:var(--muted);font-size:13px;line-height:1.8}.sprite{position:relative;width:130px;height:190px;margin:28px auto 15px}.sprite img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 8px 14px #0005)}.tears{position:absolute;top:38%;left:43%;width:7px;height:22px;background:#8ce4ff;box-shadow:30px 3px #8ce4ff;opacity:.85;animation:tear 1s steps(3,end) infinite alternate}.tears:after{content:"";position:absolute;left:30px;top:0;width:7px;height:22px;background:#8ce4ff}
+.status{margin:25px auto 0;padding:12px;border:1px solid var(--line);background:var(--soft);font-size:11px;color:var(--pink)}a{display:inline-block;margin-top:18px;color:var(--pink);font-size:11px;text-underline-offset:4px}a:focus-visible{outline:2px solid var(--pink);outline-offset:5px}
+.glitch main{animation:glitch .16s steps(2,end) infinite}.glitch body:before,.glitch body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2}.glitch body:before{background:linear-gradient(transparent 48%,#ff79bc55 49%,transparent 52%);background-size:100% 9px;animation:scan .12s steps(2,end) infinite}.glitch body:after{background:#ff2a8750;mix-blend-mode:screen;animation:flash .22s steps(2,end) infinite}
+@keyframes tear{to{transform:translateY(12px);opacity:.3}}@keyframes glitch{0%{transform:translate(0)}25%{transform:translate(5px,-2px);filter:hue-rotate(55deg)}50%{transform:translate(-4px,2px);clip-path:inset(14% 0 62%)}75%{transform:translate(2px,1px);clip-path:inset(65% 0 9%)}}@keyframes scan{to{transform:translateY(7px)}}@keyframes flash{50%{opacity:.1}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+</style></head>
+<body><main aria-labelledby="title"><p class="eyebrow">PIXEL YATEEKA / FEELINGS.EXE</p><div class="sprite" aria-hidden="true"><img src="pixel-yateeka.png" alt=""><span class="tears"></span></div><h1 id="title">Yateeka is sad…</h1><p>She waited and waited until she grew big enough<br>to take over the whole page. Now the pixels are glitching.</p><p class="status" id="status" role="status" aria-live="polite">Trying to put the page back together…</p><a href="404.html">Skip the glitch and continue to the 404 page →</a></main>
+<script>
+const status=document.querySelector('#status');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const pause=reduced?450:1700;
+setTimeout(()=>{document.documentElement.classList.add('glitch');status.textContent='GLITCH DETECTED — redirecting…';},pause);
+setTimeout(()=>location.replace('404.html'),pause+(reduced?400:1700));
+</script></body></html>

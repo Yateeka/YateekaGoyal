@@ -199,6 +199,17 @@ footer .logo{font-size:21px}
 @media(max-width:600px){.companion-world .pixel-companion{width:160px}.companion-world .companion-scene{height:175px}.companion-world .character-button{width:112px;height:167px}.companion-world .character-button img{width:112px;height:163px}.companion-world .companion-menu{bottom:223px}.companion-world .companion-bubble{font-size:9px}.companion-world .activity-prop{transform:scale(.9);right:-2px}}
 @media(max-height:650px){.companion-world .companion-menu{position:fixed;bottom:10px;max-height:calc(100svh - 24px);overflow:auto;z-index:2}}
 @media(prefers-reduced-motion:reduce){.companion-world .wandering .character-button img{animation:none!important}}
+/* Attention overload: Pixel Yateeka grows across the viewport before the interstitial. */
+.companion-world.pixel-takeover{z-index:10000;background:#110b13;pointer-events:auto;overflow:hidden}
+.pixel-takeover .pixel-companion{position:static!important;inset:auto!important;width:100vw!important;height:100vh!important;transform:none!important;pointer-events:none}
+.pixel-takeover .companion-bubble,.pixel-takeover .companion-name,.pixel-takeover .companion-menu{display:none!important}
+.pixel-takeover .companion-scene{position:static;height:0!important}
+.pixel-takeover .character-button{position:fixed!important;left:50%!important;top:50%!important;bottom:auto!important;width:130px!important;height:195px!important;transform:translate(-50%,-50%) scale(var(--attention-scale,1))!important;transform-origin:center;pointer-events:none;z-index:2}
+.pixel-takeover .character-button img{width:130px!important;height:190px!important;max-width:none;animation:pixel-fill-screen 1.7s cubic-bezier(.2,.7,.3,1) forwards!important}
+.pixel-takeover:after{content:"";position:absolute;inset:0;background:#ff79bc;opacity:0;animation:takeover-flash 1.7s ease-in forwards;pointer-events:none}
+@keyframes pixel-fill-screen{to{transform:scale(18);filter:drop-shadow(0 0 24px #ff79bc)}}
+@keyframes takeover-flash{55%{opacity:.1}100%{opacity:.36}}
+@media(prefers-reduced-motion:reduce){.pixel-takeover .character-button img,.pixel-takeover:after{animation-duration:.3s!important}}
 .character-button{touch-action:none;cursor:grab}
 .being-dragged .character-button{cursor:grabbing}
 .being-dragged .character-button img{animation:none;transform:rotate(-9deg)}
@@ -381,6 +392,7 @@ footer .logo{font-size:21px}
 .outfit-sprite{display:none;position:absolute;inset:0;background-image:url('pixel-wardrobe.png');background-repeat:no-repeat;background-size:400% 100%;background-position:var(--outfit-position,0%) center;image-rendering:pixelated;z-index:1}
 .pixel-companion:not([data-outfit=professional]) .character-button>img{visibility:hidden}
 .pixel-companion:not([data-outfit=professional]) .outfit-sprite{display:block}
+.pixel-companion[data-outfit=pajamas] .outfit-sprite{background-image:url('pixel-yateeka-pajamas.png');background-size:100% 100%;background-position:center}
 .emotion-mark{position:absolute;right:-3px;top:0;z-index:3;color:#ffd0e9;font:700 20px var(--mono);text-shadow:2px 2px #491e39;pointer-events:none}
 [data-emotion=confused] .character-button,[data-emotion=thinking] .character-button{transform:rotate(-8deg)}
 [data-emotion=proud] .character-button{transform:translateY(-4px)}
@@ -513,8 +525,11 @@ footer .logo{font-size:21px}
 .devil-horns i:first-child{left:0;transform:rotate(-12deg)}
 .devil-horns i:last-child{right:0;transform:scaleX(-1) rotate(-12deg)}
 .daring .devil-horns{display:block}
-.pixel-companion.daring .character-button>img{visibility:visible}
-.pixel-companion.daring .outfit-sprite,.daring .emotion-mark{display:none}
+.pixel-companion.daring[data-outfit=professional] .character-button>img{visibility:visible}
+.pixel-companion.daring[data-outfit=professional] .outfit-sprite{display:none}
+.pixel-companion.daring:not([data-outfit=professional]) .character-button>img{visibility:hidden}
+.pixel-companion.daring:not([data-outfit=professional]) .outfit-sprite{display:block}
+.daring .emotion-mark{display:none}
 .daring .character-button{filter:drop-shadow(0 0 9px #e3448c55)}
 
 /* A short signal failure, without bright full-screen flashes. */
