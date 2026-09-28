@@ -1,0 +1,45 @@
+/* Pink terminal introduction and matching portfolio palette. */
+:root,[data-theme="dark"]{--bg:#0c090c;--panel:#171016;--ink:#fff2f8;--muted:#bca8b6;--line:#36232f;--acid:#ff80bd;--orange:#ff57a9;--blue:#ed77ac}
+[data-theme="light"]{--bg:#fff5fa;--panel:#fff;--ink:#291420;--muted:#765568;--line:#ead0df;--acid:#a52364;--orange:#b8206b;--blue:#af306d}
+body.intro-active{overflow:hidden}
+.hack-intro[hidden]{display:none}
+.hack-intro{position:fixed;inset:0;z-index:10000;background:#080509;color:#fff0f7;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:70px 24px;overflow:auto;cursor:auto}
+#codeRain{position:absolute;inset:0;width:100%;height:100%;opacity:.65;pointer-events:none}
+.hack-intro:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 20%,#080509b8 100%);pointer-events:none}
+.hack-topline{position:absolute;top:28px;left:4vw;right:4vw;display:flex;justify-content:space-between;font:10px var(--mono);letter-spacing:.14em;color:#f29ac5;z-index:1;gap:20px}
+.hack-window{position:relative;z-index:1;width:min(680px,100%);border:1px solid #73314f;background:#100a10ed;box-shadow:0 0 90px #ff26851a;border-radius:12px;overflow:hidden}
+.terminal-bar{display:flex;justify-content:space-between;align-items:center;padding:16px 23px;border-bottom:1px solid #452333;font:11px var(--mono);color:#c998b0;gap:16px}
+.terminal-dots{color:#fa60a7;letter-spacing:5px}
+.terminal-body{padding:38px 46px 30px}
+.hack-kicker{font:10px var(--mono);letter-spacing:.22em;color:#ff80bd;margin:0 0 24px}
+#hackTitle{position:relative;font-size:clamp(42px,6vw,74px);line-height:1.02;letter-spacing:-.065em;margin:0;font-weight:800}
+#hackTitle em{color:#ff73b5;font-style:normal;text-shadow:0 0 38px #ff23853b}
+.hack-star{position:absolute;right:0;top:2px;color:#ff73b5;font-size:45px}
+.hack-subtitle{color:#c3a6b7;font-size:13px;line-height:1.7;margin:22px 0 28px}
+.boot-log{font:12px/1.7 var(--mono);color:#cf9cb7;min-height:116px}
+.boot-log p{opacity:.15;margin:5px 0;transition:opacity .3s}
+.boot-log p.loaded{opacity:1}
+.boot-log p:last-child{color:#ff8cc4}
+.boot-track{height:3px;background:#3c2130;margin-top:20px}
+.boot-track span{display:block;width:0;height:100%;background:#ff73b5;box-shadow:0 0 13px #ff419b}
+.boot-bottom{display:flex;justify-content:space-between;gap:12px;font:10px var(--mono);color:#d5aac0;margin-top:13px}
+.hack-enter{display:block;width:100%;border:1px solid #74405b;border-radius:5px;background:#27121e;color:#ffd6e9;font:11px var(--mono);padding:15px;margin-top:27px;cursor:pointer;transition:background .2s}
+.hack-enter:hover{background:#51213a}
+.hack-enter:focus-visible,.replay-intro:focus-visible{outline:2px solid #ff9dcd;outline-offset:4px}
+.hack-footnote{position:relative;z-index:1;font:10px var(--mono);color:#d19ab6;text-align:center;margin:24px 0 0;letter-spacing:.06em}
+.hero-glow,[data-theme="light"] .hero-glow{background:radial-gradient(circle,#ec388324,transparent 67%)}
+.hero h1{font-size:clamp(52px,6.5vw,104px)}
+.outline,[data-theme="light"] .outline{-webkit-text-stroke-color:var(--acid)}
+.button-primary,.filters button.active,.project-card:hover .project-arrow{background:var(--acid);color:var(--bg);box-shadow:none}
+.hero-command{font-size:11px;line-height:1.9;color:var(--acid);margin:24px 0}
+.command-answer{color:var(--muted)}
+.portrait-frame{border-radius:10px 10px 65px 10px}
+.orbit,.orbit-two{border-color:#ff80bd45}
+.visual-one{background:linear-gradient(135deg,#ef69a8,#ffc1df)}
+.visual-three{background:linear-gradient(135deg,#b86690,#f3a3c8)}
+[data-theme="dark"] .experience{background:#130d12}
+[data-theme="light"] .experience{background:#f8e8f0}
+[data-theme="light"] .project-meta,[data-theme="light"] .capability .mono,[data-theme="light"] .section-label span,[data-theme="light"] .experience .section-title em,[data-theme="light"] .experience .row-arrow{color:var(--acid)}
+.replay-intro{background:none;border:1px solid var(--line);padding:10px 12px;border-radius:4px;font:10px var(--mono);color:var(--acid);cursor:pointer}
+@media(max-width:600px){.terminal-body{padding:28px 22px 24px}.terminal-bar{padding:14px;font-size:9px}.hack-star{font-size:28px}.hack-topline{font-size:8px}.boot-log{font-size:10px}.hack-footnote{font-size:9px;line-height:1.8}.hero h1{font-size:14vw}.hero-command{font-size:10px}footer{flex-wrap:wrap;gap:22px}}
+@media(max-height:650px){.hack-intro{justify-content:flex-start}.terminal-body{padding-top:22px}.hack-subtitle{margin:16px 0}.hack-footnote{margin-bottom:20px}}
